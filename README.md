@@ -1,6 +1,6 @@
 # Enhanced PDF Q&A with AI Chatbot
 
-A Streamlit-based web application that combines automated question-answer generation from PDF documents with an interactive AI chatbot, powered by Ollama's local LLM inference engine using Google's Gemma-2b model.
+A Streamlit-based web application that combines automated question-answer generation from PDF documents with an interactive AI chatbot, powered by Ollama's local LLM inference engine using IBM's Granite-3 model.
 
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/streamlit-1.28+-red.svg)
@@ -49,7 +49,7 @@ graph TD
 
 2. **Q&A Generation Pipeline**
    ```
-   Text chunks → Ollama API → Gemma-2b → Structured Q&A pairs → Display
+   Text chunks → Ollama API → Granite3 → Structured Q&A pairs → Display
    ```
 
 3. **Context-Aware Chat**
@@ -108,11 +108,11 @@ graph TD
    ```bash
    # Install Ollama (visit https://ollama.ai/download for your OS)
    
-   # Pull Gemma-2b model
-   ollama pull gemma:2b
+   # Pull Grante-3 model
+   ollama pull granite3-dense
    
    # Start Ollama server
-   ollama serve
+   ollama server
    ```
 
 3. **Run the application**
@@ -145,7 +145,7 @@ graph TD
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Streamlit     │    │     Ollama      │    │   Gemma-2b      │
+│   Streamlit     │    │     Ollama      │    │   granite3      │
 │   Frontend      │◄──►│   API Server    │◄──►│   LLM Model     │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
@@ -170,7 +170,7 @@ graph TD
 ### Environment Variables
 ```python
 OLLAMA_BASE_URL = "http://localhost:11434"  # Ollama server endpoint
-MODEL_NAME = "gemma:2b"                     # LLM model identifier
+MODEL_NAME = "granite3-dense:latest"                     # LLM model identifier
 ```
 
 ### Generation Parameters
@@ -258,7 +258,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Google**: For the Gemma-2b model
+- **IBM**: For the Granite3 model
 - **Ollama**: For local LLM inference capabilities  
 - **Streamlit**: For the excellent web framework
 - **PyPDF2**: For PDF text extraction functionality
@@ -271,4 +271,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ using Streamlit, Ollama, and Gemma-2b**
+**Built with ❤️ using Streamlit, Ollama, and Granite-3**
