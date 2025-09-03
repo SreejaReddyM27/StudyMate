@@ -319,7 +319,8 @@ st.set_page_config(
 connection_status, connection_message = test_ollama_connection()
 
 # Main Title
-st.title("📄 Enhanced PDF Q&A Generator with AI Chatbot & JSON History")
+st.markdown("<br>", unsafe_allow_html=True)
+st.title("📄 Enhanced PDF Q&A Generator\nwith AI Chatbot & JSON History")
 st.write("Upload a PDF, generate Q&A pairs, chat with an AI assistant, and persist your history in JSON files.")
 
 # Display connection status
