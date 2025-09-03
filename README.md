@@ -82,7 +82,7 @@ graph TD
 ### 4. **PDF Processing Limitations**
 - **Issue**: Cannot process scanned PDFs or image-based content
 - **Impact**: Limited to text-based PDFs
-- **Mitigation**: Use OCR-processed PDFs for scanned documents
+- **Mitigation**: Use OCR-processed PDFs for scanned documents(pytesserect)
 
 ### 5. **Model-Specific Constraints**
 - **Issue**: Response quality depends on Gemma-2b's training data and capabilities
