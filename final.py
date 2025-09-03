@@ -1,4 +1,3 @@
-
 import streamlit as st
 from PyPDF2 import PdfReader
 import requests
@@ -7,7 +6,7 @@ import json
 
 # Ollama configuration
 OLLAMA_BASE_URL = "http://localhost:11434"
-MODEL_NAME = "gemma:2b"
+MODEL_NAME = "granite3-dense:latest"
 
 
 @st.cache_resource
@@ -210,36 +209,36 @@ if connection_status:
     st.success(connection_message)
 else:
     st.error(connection_message)
-    st.info("Make sure Ollama is running with: `ollama serve` and you have the gemma:2b model installed with: `ollama pull gemma:2b`")
+    st.info("Make sure Ollama is running with: ollama serve and you have the gemma:2b model installed with: ollama pull gemma:2b")
 
 # Sidebar - About Us
-st.sidebar.title("ℹ️ About This App")
+st.sidebar.title("ℹ About This App")
 st.sidebar.markdown(f"""
 ### Features:
-- ✅ **PDF Q&A Generation**: Automatic question-answer generation from PDF content
-- ✅ **AI Chatbot**: Interactive chat with PDF context awareness  
-- ✅ **Local LLM**: Powered by Ollama Gemma-2b (no internet required for inference)
-- ✅ **Session History**: Track Q&A pairs and chat conversations
-- ✅ **Page Selection**: Choose specific pages to process
+- ✅ *PDF Q&A Generation*: Automatic question-answer generation from PDF content
+- ✅ *AI Chatbot*: Interactive chat with PDF context awareness  
+- ✅ *Local LLM*: Powered by Ollama Gemma-2b (no internet required for inference)
+- ✅ *Session History*: Track Q&A pairs and chat conversations
+- ✅ *Page Selection*: Choose specific pages to process
 
 ### Models & Frameworks:
-**🤖 Language Model:**
-- **Ollama Gemma:2b**: Google's Gemma-2b model running locally
+*🤖 Language Model:*
+- *Ollama Gemma:2b*: Google's Gemma-2b model running locally
 
-**🛠️ Tech Stack:**
-- **Streamlit**: Interactive web framework
-- **Ollama**: Local LLM inference engine  
-- **PyPDF2**: PDF text extraction
-- **Requests**: HTTP client for API calls
+*🛠 Tech Stack:*
+- *Streamlit*: Interactive web framework
+- *Ollama*: Local LLM inference engine  
+- *PyPDF2*: PDF text extraction
+- *Requests*: HTTP client for API calls
 
 ### System Status:
-- **Ollama Server**: {"🟢 Connected" if connection_status else "🔴 Disconnected"}
-- **Model**: {MODEL_NAME}
-- **Endpoint**: {OLLAMA_BASE_URL}
+- *Ollama Server*: {"🟢 Connected" if connection_status else "🔴 Disconnected"}
+- *Model*: {MODEL_NAME}
+- *Endpoint*: {OLLAMA_BASE_URL}
 """)
 
 # Clear history button in sidebar
-if st.sidebar.button("🗑️ Clear All History"):
+if st.sidebar.button("🗑 Clear All History"):
     st.session_state.qa_history = []
     st.session_state.processed_files = []
     st.session_state.chat_messages = []
@@ -261,7 +260,7 @@ with col1:
         # Get total pages for reference
         reader = PdfReader(pdf_file)
         total_pages = len(reader.pages)
-        st.info(f"📖 PDF has **{total_pages}** pages")
+        st.info(f"📖 PDF has *{total_pages}* pages")
 
         # Page selection
         st.subheader("📖 Page Selection")
@@ -286,7 +285,7 @@ with col1:
             )
 
         # Question settings
-        st.subheader("⚙️ Generation Settings")
+        st.subheader("⚙ Generation Settings")
         num_questions = st.slider("Number of questions per chunk", 1, 8, 4)
 
         # Submit button
@@ -302,10 +301,10 @@ with col1:
                 if not text.strip():
                     st.error("❌ No text found in the selected pages. Please try different pages.")
                 else:
-                    st.success(f"✅ Text extracted from **{pages_processed}** pages (pages {start_page} to {end_page})")
+                    st.success(f"✅ Text extracted from *{pages_processed}* pages (pages {start_page} to {end_page})")
 
                     chunks = chunk_text(text)
-                    st.write(f"📝 Content divided into **{len(chunks)}** chunks for processing.")
+                    st.write(f"📝 Content divided into *{len(chunks)}* chunks for processing.")
 
                     # Generate Q&A for each chunk
                     all_qa_pairs = []
@@ -325,31 +324,31 @@ with col1:
                         if pdf_file.name not in st.session_state.processed_files:
                             st.session_state.processed_files.append(pdf_file.name)
 
-                        st.success(f"🎉 Generated **{len(all_qa_pairs)}** question-answer pairs!")
+                        st.success(f"🎉 Generated *{len(all_qa_pairs)}* question-answer pairs!")
 
                         # Display Current Q&A pairs
                         st.subheader("❓ Generated Questions & Answers")
 
                         for idx, (chunk_num, question, answer, filename) in enumerate(all_qa_pairs, 1):
                             with st.container():
-                                st.markdown(f"**Q{idx}:** {question}")
-                                st.markdown(f"**A{idx}:** {answer}")
+                                st.markdown(f"*Q{idx}:* {question}")
+                                st.markdown(f"*A{idx}:* {answer}")
                                 st.caption(f"📄 Source: {filename} (Chunk {chunk_num})")
                                 st.markdown("---")
                     else:
-                        st.warning("⚠️ No valid Q&A pairs were generated. Try adjusting settings.")
+                        st.warning("⚠ No valid Q&A pairs were generated. Try adjusting settings.")
 
     # Q&A History section
     if st.session_state.qa_history:
         st.subheader("📚 Q&A History")
-        st.write(f"Total questions generated: **{len(st.session_state.qa_history)}**")
+        st.write(f"Total questions generated: *{len(st.session_state.qa_history)}*")
 
         # Show recent history in an expander
         with st.expander(f"Recent Q&A History (Last 5)", expanded=False):
             recent_qa = st.session_state.qa_history[-5:]
             for idx, (chunk_num, question, answer, filename) in enumerate(reversed(recent_qa), 1):
-                st.markdown(f"**Q:** {question}")
-                st.markdown(f"**A:** {answer}")
+                st.markdown(f"*Q:* {question}")
+                st.markdown(f"*A:* {answer}")
                 st.caption(f"📄 {filename}")
                 st.markdown("---")
 
